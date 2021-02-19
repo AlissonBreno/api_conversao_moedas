@@ -26,7 +26,7 @@ describe('ExchangeService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('covnertAmount()', () => {
+  describe('convertAmount()', () => {
     describe('if called with invalid params', () => {
       it('should be throw an error', async () => {
         await expect(
@@ -42,18 +42,27 @@ describe('ExchangeService', () => {
         ).resolves.not.toThrow(new BadRequestException());
       });
     });
-    describe('getCurrency() should be called', () => {
-      it('twice', async () => {
+    describe('getCurrency()', () => {
+      it('should be called twice', async () => {
         await service.covnertAmount({ from: 'USD', to: 'BRL', amount: 1 });
         await expect(currenciesService.getCurrency).toBeCalledTimes(2);
       });
 
-      it('with correct params', async () => {
+      it('should be called with correct params', async () => {
         await service.covnertAmount({ from: 'USD', to: 'BRL', amount: 1 });
         await expect(currenciesService.getCurrency).toBeCalledWith('USD');
         await expect(currenciesService.getCurrency).toHaveBeenLastCalledWith(
           'BRL'
         );
+      });
+
+      it('should be throw', async () => {
+        (currenciesService.getCurrency as jest.Mock).mockRejectedValue(
+          new Error()
+        );
+        await expect(
+          service.covnertAmount({ from: 'INVALID', to: 'BRL', amount: 1 })
+        ).rejects.toThrow();
       });
     });
   });

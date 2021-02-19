@@ -47,6 +47,14 @@ describe('ExchangeService', () => {
         await service.covnertAmount({ from: 'USD', to: 'BRL', amount: 1 });
         await expect(currenciesService.getCurrency).toBeCalledTimes(2);
       });
+
+      it('with correct params', async () => {
+        await service.covnertAmount({ from: 'USD', to: 'BRL', amount: 1 });
+        await expect(currenciesService.getCurrency).toBeCalledWith('USD');
+        await expect(currenciesService.getCurrency).toHaveBeenLastCalledWith(
+          'BRL'
+        );
+      });
     });
   });
 });

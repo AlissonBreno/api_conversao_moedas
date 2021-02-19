@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ExchangeService } from '../exchange.service';
 
@@ -22,6 +23,14 @@ describe('ExchangeService', () => {
         await expect(
           service.covnertAmount({ from: '', to: '', amount: 0 })
         ).rejects.toThrow();
+      });
+    });
+
+    describe('if called with valid params', () => {
+      it('should be not throw an error', async () => {
+        await expect(
+          service.covnertAmount({ from: 'USD', to: 'BRL', amount: 1 })
+        ).resolves.not.toThrow(new BadRequestException());
       });
     });
   });

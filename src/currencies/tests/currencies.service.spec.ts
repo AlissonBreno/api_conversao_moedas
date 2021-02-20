@@ -3,7 +3,9 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CurrenciesRepository, CurrenciesService } from '../currencies.service';
+import { CurrenciesService } from '../currencies.service';
+import { CurrenciesEntity } from '../entities/currencies.entity';
+import { CurrenciesRepository } from '../repositories/currencies.respository';
 
 describe('CurrenciesService', () => {
   let service: CurrenciesService;
@@ -30,7 +32,7 @@ describe('CurrenciesService', () => {
 
     service = module.get<CurrenciesService>(CurrenciesService);
     repository = module.get<CurrenciesRepository>(CurrenciesRepository);
-    mockData = { currency: 'USD', value: 1 };
+    mockData = { currency: 'USD', value: 1 } as CurrenciesEntity;
   });
 
   it('should be defined', () => {

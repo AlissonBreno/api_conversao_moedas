@@ -41,4 +41,8 @@ describe('CurrenciesRepository()', () => {
       expect(await repository.getCurrency('USD')).toEqual(mockData);
     });
   });
+
+  describe('createCurrency()', () => {
+    it('should ', () => {});
+  });
 });

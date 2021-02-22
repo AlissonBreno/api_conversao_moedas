@@ -1,5 +1,15 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CurrenciesService } from './currencies.service';
+import { CreateCurrencyDto } from './dto/create-currency.dto';
 import { CurrenciesEntity } from './entities/currencies.entity';
 
 @Controller('currencies')
@@ -11,5 +21,13 @@ export class CurrenciesController {
     @Param('currency') currency: string
   ): Promise<CurrenciesEntity> {
     return await this.currenciesService.getCurrency(currency);
+  }
+
+  @Post()
+  @UsePipes(ValidationPipe)
+  async createCurrency(
+    @Body() createCurrencyDto: CreateCurrencyDto
+  ): Promise<CurrenciesEntity> {
+    return await this.currenciesService.createCurrency(createCurrencyDto);
   }
 }

@@ -5,7 +5,7 @@ import {
 import { Test, TestingModule } from '@nestjs/testing';
 import { CurrenciesService } from '../currencies.service';
 import { CurrenciesEntity } from '../entities/currencies.entity';
-import { CurrenciesRepository } from '../repositories/currencies.respository';
+import { CurrenciesRepository } from '../repositories/currencies.repository';
 
 describe('CurrenciesService', () => {
   let service: CurrenciesService;

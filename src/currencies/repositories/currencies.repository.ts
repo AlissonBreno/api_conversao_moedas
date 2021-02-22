@@ -53,6 +53,16 @@ export class CurrenciesRepository extends Repository<CurrenciesEntity> {
   }
 
   async deleteCurrency(currency: string): Promise<void> {
-    return;
+    const response = await this.findOne({ currency });
+
+    if (!response) {
+      throw new NotFoundException(`The currency ${currency} was not found.`);
+    }
+
+    try {
+      await this.delete({ currency });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }

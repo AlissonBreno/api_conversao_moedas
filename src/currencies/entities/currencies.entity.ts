@@ -4,7 +4,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ObjectIdColumn,
   PrimaryColumn,
   Unique,
   UpdateDateColumn,
@@ -13,9 +12,6 @@ import {
 @Unique(['currency'])
 @Entity()
 export class CurrenciesEntity {
-  @ObjectIdColumn()
-  _id: string;
-
   @PrimaryColumn()
   @Length(3, 3)
   @IsNotEmpty()
